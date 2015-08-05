@@ -1,0 +1,15 @@
+---
+- name: docker run kibana
+  docker:
+    docker_api_version: "{{ docker_api_version }}"
+    name: kibana
+    image: kibana
+    command: kibana
+    memory_limit: "{{ memory_limit }}"
+    state: started
+    expose:
+      - 5601
+    ports:
+      - 80:5601
+    links:
+      - elasticsearch:elasticsearch
