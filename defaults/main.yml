@@ -1,2 +1,5 @@
 # use 512MB, type string, or 0 for unlimited
 memory_limit: 0MB
+kibana_docker_build: /tmp/kibana
+kibana_docker_image: vmware-opencloud/kibana
+elasticsearch_cluster_name: default_clustername

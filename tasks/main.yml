@@ -1,12 +1,23 @@
 ---
+- name: create docker build dir
+  file: state=directory path={{ kibana_docker_build }}
+
+- name: sync the docker image src to remote nodes
+  copy: src=../../../containers/docker/kibana/ dest={{ kibana_docker_build }} mode=755
+  tags:
+    - rsync
+
+- name: build the image
+  shell: cd {{ kibana_docker_build }} && /bin/bash ./build.sh
+
 - name: docker run kibana
   docker:
     docker_api_version: "{{ docker_api_version }}"
     name: kibana
-    image: kibana
-    command: kibana
+    image: vmware-opencloud/kibana
     memory_limit: "{{ memory_limit }}"
-    state: started
+    restart_policy: always
+    state: reloaded
     expose:
       - 5601
     ports:
