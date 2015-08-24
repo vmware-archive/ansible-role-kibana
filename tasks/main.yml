@@ -11,6 +11,7 @@
     - ../../../../containers/docker/kibana/*
 
 - name: build the image
+  async: 1000
   shell: cd {{ kibana_docker_build }} && /bin/bash ./build.sh
 
 - name: docker run kibana
